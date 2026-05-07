@@ -126,6 +126,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+# التوجيه لصفحة الأدمن لو اليوزر مش مسجل دخول
+LOGIN_URL = '/admin/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

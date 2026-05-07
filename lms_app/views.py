@@ -1,9 +1,11 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Book, Category 
 from .forms import BookForm, CategoryForm
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:      
         # Senior Note: بنعمل تحقق، لو الريكويست جاي من فورم إضافة الكتاب
         if 'add_book' in request.POST:
             add_book = BookForm(request.POST, request.FILES)
@@ -36,6 +38,7 @@ def index(request):
     }
     return render(request, 'pages/index.html', context)
 
+
 def books(request):
     search = Book.objects.all()
     title = None
@@ -62,6 +65,7 @@ def books(request):
     return render(request, 'pages/books.html', context)
 
 
+@login_required
 def update(request , id):
     # عشان لو حد كتب ID مش موجود في اللينك، نطلعله صفحة 404 شيك بدل ما السيرفر يضرب
     book_id = get_object_or_404(Book, id=id) 
@@ -78,6 +82,7 @@ def update(request , id):
     return render(request, 'pages/update.html', context)
 
 
+@login_required
 def delete(request, id):
     book_delete = get_object_or_404(Book, id=id)
     if request.method == 'POST':

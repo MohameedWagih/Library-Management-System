@@ -124,6 +124,7 @@
               <h3 class="card-title">اضافة كتاب</h3>
             </div>
             <!-- /.card-header -->
+             {% if request.user.is_authenticated %}
             <!-- form start -->
             <form method="POST" enctype="multipart/form-data"  > 
             {% csrf_token %}
@@ -136,6 +137,7 @@
                 <button type="submit" name="add_book" class="btn btn-primary">اضافة</button>
               </div>
             </form>
+            {% endif %}
           </div>
   
                 <!-- /.card -->
@@ -176,8 +178,10 @@
                     <span class="sr-only">Toggle Dropdown</span>
                   </button>
                   <div class="dropdown-menu">
+                    {% if request.user.is_authenticated %}
                     <a class="dropdown-item" href="{% url 'update' book.id %}">تعديل</a>
                     <a class="dropdown-item" href="{% url 'delete' book.id %}">حذف</a>
+                    {% endif %}
                 <!-- Button trigger modal -->
                   </div>
                 </div>
