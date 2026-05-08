@@ -72,48 +72,38 @@
                     
 
                      {% for book in books %}
-                    <div   class="col-12 col-sm-6 col-md-4 bookhide book{{book.category.id}} book{{book.status}}">
-                      <div  id="" class="card bg-light">
-                        <div  class="card-header text-muted border-bottom-0">
-                         {{book.category}}
-                        </div>
-                        <div class="card-body pt-0">
-                          <div class="row">
-                            <div class="col-7">
-                              <h2 class="lead"><b>{{book.title}}</b></h2>
-                              <ul class="  fa-ul text-muted">
-                                <li class="small"><span class="fa-li"></span>الحالة: {{book.status}}</li>
-                                {% if book.price %}
-                                <li class="small"><span class="fa-li"></span>السعر: {{book.price}}$</li>
-                                {% elif book.rental_price_day %}
-                                <li class="small"><span class="fa-li"></span>في اليوم: {{book.rental_price_day}}$</li>
-                                {% endif %}
-                              </ul>
+                        <div class="col-12 col-md-6 col-lg-4 bookhide">
+                            <div class="card mb-3 shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                <div class="row no-gutters align-items-center" dir="rtl">
+                                    
+                                    <div class="col-7 p-3 text-right">
+                                        <span class="text-muted d-block mb-1" style="font-size: 13px;">{{ book.category }}</span>
+                                        <h5 class="font-weight-bold mb-2">{{ book.title }}</h5>
+                                        
+                                        <div class="mb-1" style="font-size: 14px;">
+                                            <span class="text-muted">الحالة: </span>
+                                            <strong class="text-info">{{ book.status }}</strong>
+                                        </div>
+                                        
+                                        <div style="font-size: 14px;">
+                                            <span class="text-muted">السعر: </span>
+                                            <strong class="text-success">{{ book.price }} $</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-5 text-center p-2">
+                                        {% if book.photo_book %}
+                                            <img src="{{ book.photo_book.url }}" class="img-fluid rounded" style="height: 140px; width: 100px; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="غلاف الكتاب">
+                                        {% else %}
+                                            <div class="bg-light rounded d-flex justify-content-center align-items-center" style="height: 140px; width: 100px; margin: auto; border: 1px solid #ddd;">
+                                                <span class="text-muted" style="font-size: 12px;">بدون غلاف</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-5 text-center">
-                              {% if book.photo_book %}
-                                <img style="height: 120px; width: 120px;"  src="{{book.photo_book.url}}" alt="" class="img-circle img-fluid">
-                              {% else %}
-                                <img style="height: 120px; width: 120px;"  src="{% static 'dist/img/photo1.png' %}" alt="" class="img-circle img-fluid">
-                              {% endif %}
-                              </div>
-                          </div>
                         </div>
-                        <div class="card-footer">
-                          <div class="text-right">
-                            {% if request.user.is_authenticated %}
-                            <a href="{% url 'delete' book.id %}" class="btn btn-sm bg-danger">
-                              <i class="fas fa-trash"></i>
-                            </a>
-                            <a href="{% url 'update' book.id %}" class="btn btn-sm btn-primary">
-                              <i class="fas fa-book"></i> تعديل
-                            </a>
-                            {% endif %}
-                          </div>
-                        </div>
-                      </div>
-                      
-                    </div>
                     {% endfor %}
                      <!-- نهاية الكتاب -->
 
